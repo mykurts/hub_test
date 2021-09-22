@@ -78,3 +78,17 @@ jobs:
           bin/rails db:test:prepare
           bundle exec rspec
 
+  Deploy:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    needs: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy to server
+        run: |
+          git pull origin master
+          bundle install
+          rails db:migrate
+          rails assets:precompile
+          pkill -f $SERVER && puma -d -p $PORT

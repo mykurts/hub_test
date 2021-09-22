@@ -93,10 +93,6 @@ jobs:
           key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gem-
-
-      - name: Bundle dependencies
-        run: |
-          bundle install --jobs 4 --retry 3
     
       - name: Deploy to server
         env:

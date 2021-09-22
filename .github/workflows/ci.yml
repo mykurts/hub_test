@@ -88,7 +88,6 @@ jobs:
       - name: Deploy to server
         run: |
           git pull origin master
-          bundle install
           rails db:migrate
           rails assets:precompile
           pkill -f $SERVER && puma -d -p $PORT

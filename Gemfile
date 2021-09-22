@@ -77,3 +77,6 @@ gem 'aes-everywhere'
 
  # other gems
 gem 'fcm'
+
+
+gem 'rexml', '~> 3.2', '>= 3.2.5'

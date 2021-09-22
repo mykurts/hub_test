@@ -77,34 +77,3 @@ jobs:
           chmod u+x bin/rails
           bin/rails db:test:prepare
           bundle exec rspec
-
-  Deploy:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-    needs: Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@master
-
-      - name: Cache gems
-        uses: actions/cache@v1
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gem-
-    
-      - name: Deploy to server
-        env:
-          POSTGRES_USER: ${{ job.services.postgres.env.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ job.services.postgres.env.POSTGRES_PASSWORD }}
-          POSTGRES_DB: admin_demo_test
-          REDIS_URL: redis://localhost:6379/8
-          RAILS_ENV: test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-          PG_USER: ${{ job.services.postgres.env.POSTGRES_USER }}
-        run: |
-          chmod u+x bin/rails
-          rails db:migrate
-          rails assets:precompile
-          pkill -f $SERVER && puma -d -p $PORT

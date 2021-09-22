@@ -85,9 +85,29 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
+
+      - name: Cache gems
+        uses: actions/cache@v1
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+
+
       - name: Deploy to server
+        env:
+          POSTGRES_USER: ${{ job.services.postgres.env.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ job.services.postgres.env.POSTGRES_PASSWORD }}
+          POSTGRES_DB: admin_demo_test
+          REDIS_URL: redis://localhost:6379/8
+          RAILS_ENV: test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+          PG_USER: ${{ job.services.postgres.env.POSTGRES_USER }}
         run: |
           git pull origin master
+          chmod u+x bin/rails
+          bundle install --jobs 4 --retry 3
           rails db:migrate
           rails assets:precompile
           pkill -f $SERVER && puma -d -p $PORT

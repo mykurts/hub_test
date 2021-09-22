@@ -93,8 +93,7 @@ jobs:
           key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-gem-
-
-
+    
       - name: Deploy to server
         env:
           POSTGRES_USER: ${{ job.services.postgres.env.POSTGRES_USER }}
@@ -107,6 +106,7 @@ jobs:
         run: |
           git pull origin master
           chmod u+x bin/rails
+          bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
           rails db:migrate
           rails assets:precompile

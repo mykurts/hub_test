@@ -10,5 +10,8 @@ COPY . .
 RUN SECRET_KEY_BASE="assets_compile" RAILS_ENV=production bundle exec rake assets:precompile
 # Add entrypoint script to handle migrations
 
+RUN ["chmod", "+x", "./docker-entrypoint.sh"]
+
+ENTRYPOINT [ "./docker-entrypoint.sh" ]
 EXPOSE 1598
 CMD ["rails", "server", "-b", "0.0.0.0"]

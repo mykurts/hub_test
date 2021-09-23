@@ -105,4 +105,5 @@ jobs:
           key: ${{ secrets.VPS_KEY }}
           script: |
             cd app/admin-demo/
-            docker-compose down
+            docker-compose pull app
+            docker-compose up -d --no-deps

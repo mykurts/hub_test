@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
 
 #3 The WORKDIR instruction sets the working directory for any RUN, CMD, ENTRYPOINT, COPY and ADD
 # If a directory doesn’t exist, it will be created
-WORKDIR /home/kurt/Documents/RubyProjects/RND/admin-demo
+WORKDIR app/admin-demo
 
 #4 Copy files from current location to image WORKDIR
 COPY . . 

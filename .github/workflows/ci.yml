@@ -6,7 +6,7 @@ on:
       - '*'
   push:
     branches:
-      - master
+      - dockerize 
 
 jobs:
   Test:
@@ -25,7 +25,7 @@ jobs:
         options: --entrypoint redis-server
 
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@dockerize 
 
       - name: Setup Ruby 3.0.1
         uses: ruby/setup-ruby@v1
@@ -77,21 +77,3 @@ jobs:
           chmod u+x bin/rails
           bin/rails db:test:prepare
           bundle exec rspec
-
-  Deploy:
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-    needs: Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@master
-      - name: Cancel Heroku last Build
-        run: |
-          heroku builds:cancel
-
-      - name: Deploy To Heroku
-        uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "morning-plains-82690" #Must be unique in Heroku
-          heroku_email: "aux92.mykurts@gmail.com"

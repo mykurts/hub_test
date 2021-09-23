@@ -104,6 +104,4 @@ jobs:
           username: ${{ secrets.VPS_USER }} 
           key: ${{ secrets.VPS_KEY }}
           script: |
-            echo $CR_PAT | docker login ghcr.io -u mykurts --password-stdin
-            docker-compose pull app
-            docker-compose up -d --no-deps
+            docker-compose down

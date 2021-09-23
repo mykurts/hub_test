@@ -103,6 +103,4 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }} 
           key: ${{ secrets.VPS_KEY }}
-          script: |
-            docker-compose -f ../../docker-compose.yaml pull app
-            docker-compose -f ../../docker-compose.yaml up -d --no-deps
+          script: whoami

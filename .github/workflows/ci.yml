@@ -105,5 +105,6 @@ jobs:
           key: ${{ secrets.VPS_KEY }}
           script: |
             cd app/admin-demo/
-            docker-compose pull rails_app
+            git pull origin dockerize
+            docker-compose down
             docker-compose up -d --no-deps

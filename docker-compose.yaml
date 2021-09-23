@@ -10,7 +10,7 @@ services:
     env_file: .env
   web:
     restart: always
-    image: rails_app
+    image: ghcr.io/mykurts/rails_app:latest
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 1598 -b '0.0.0.0'"
     env_file: .env
 

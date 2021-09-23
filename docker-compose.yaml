@@ -1,0 +1,32 @@
+version: "3"
+services:
+  database:
+    # Official postgres image available in https://hub.docker.com/
+    image: postgres
+    # There are many types of volumes, this is a named volume, which will store database in docker directory
+    # Named volumes must be listed under the top-level volumes key, as shown at bottom of the file
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+  web:
+    image: rails_app
+    # Command will replace CMD from Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 1598 -b '0.0.0.0'"
+    # Path on the host, relative to the Compose file. 'app' is a WORKDIR name from Dockerfile
+    # This volume will allow you to run the Rails app with Docker Compose
+    # and made live changes without rebuilding the image
+    volumes:
+      - .:/app
+    ports:
+      - "1598:1598"
+    # 'database' is Postgres service name from the top of the file - it will allow communication between containers
+    depends_on:
+      - database
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_HOST=database  # it's Postgres service name from the top of the file
+      - RAILS_APP_TYPE=admin
+volumes:
+  db_data:

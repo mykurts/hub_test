@@ -106,5 +106,5 @@ jobs:
           script: |
             cd app/admin-demo/
             echo ${{ secrets.CR_PAT }} | docker login ghcr.io -u mykurts --password-stdin
-            docker pull web
+            docker pull ghcr.io/mykurts/rails_app:latest
             docker-compose up -d --no-deps

@@ -61,6 +61,9 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  username: <%= Rails.application.credentials.dig(:database, :database_username) %>
+  password: <%= Rails.application.credentials.dig(:database, :database_password) %>
+  host: localhost
   database: admin_demo_test
 
 # As with config/credentials.yml, you never want to store sensitive information,

@@ -92,7 +92,7 @@ jobs:
         run: docker pull ghcr.io/mykurts/rails_app:latest || exit 0
       -
         name: Build Docker image
-        run: docker build . --cache-from ghcr.io/mykurts/rails_app:latest --tag rails_app:latest
+        run: docker build . --cache-from ghcr.io/mykurts/rails_app:latest --tag ghcr.io/mykurts/rails_app:latest
       -
         name: Push the image to GitHub Container Registry
         run: docker push ghcr.io/mykurts/rails_app:latest

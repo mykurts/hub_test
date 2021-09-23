@@ -104,5 +104,5 @@ jobs:
           username: ${{ secrets.VPS_USER }} 
           key: ${{ secrets.VPS_KEY }}
           script: |
-            docker-compose pull app
-            docker-compose up -d --no-deps
+            docker-compose -f ../../docker-compose.yaml pull app
+            docker-compose -f ../../docker-compose.yaml up -d --no-deps

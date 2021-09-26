@@ -101,7 +101,7 @@ jobs:
         with:
           context: .
           push: true
-          tags:  ${{ secrets.DOCKER_USERNAME }}/hub_test:latest
+          tags:  ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
           labels: ${{ steps.meta.outputs.labels }}
       
       - name: VPS - pull image and run app containers

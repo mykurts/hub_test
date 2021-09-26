@@ -114,4 +114,5 @@ jobs:
             cd app/hub_test/
             docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             docker-compose pull web
+            docker logout
             docker-compose up -d --no-deps

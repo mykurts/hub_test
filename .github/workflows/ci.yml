@@ -112,6 +112,4 @@ jobs:
           key: ${{ secrets.VPS_KEY }}
           script: |
             cd app/hub_test/
-            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-            docker-compose pull web
-            docker-compose up -d --no-deps
+            whoami

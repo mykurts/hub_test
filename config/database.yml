@@ -27,7 +27,7 @@ default: &default
 
 development:
   <<: *default
-  database: admin_demo_development
+  database: hubtest_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -64,7 +64,7 @@ test:
   username: <%= Rails.application.credentials.dig(:database, :database_username) %>
   password: <%= Rails.application.credentials.dig(:database, :database_password) %>
   host: localhost
-  database: admin_demo_test
+  database: hubtest_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -88,4 +88,4 @@ test:
 #
 production:
   <<: *default
-  database: admin_demo_production
+  database: hubtest_production

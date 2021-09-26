@@ -116,4 +116,3 @@ jobs:
             docker-compose pull web
             docker logout
             docker-compose up -d --no-deps
-            docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
